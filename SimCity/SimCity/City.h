@@ -11,7 +11,7 @@ class City {
 private:
 	string cityName; // The name of the city.
 	string fileName; // The name of the file that stores the information about the city.  Is the same as the cityName but with a .txt extension.
-	vector <Citizen> citizens; // A vector that holds all the citizens in the city.
+	vector <Citizen> * citizens = new vector <Citizen>; // A vector that holds all the citizens in the city.
 
 public:
 
