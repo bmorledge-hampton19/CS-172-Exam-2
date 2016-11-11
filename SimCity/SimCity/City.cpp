@@ -64,6 +64,7 @@ City::City(string cityName)
 
 	}
 
+	// Close the input stream
 	restorer.close();
 
 }
@@ -88,6 +89,7 @@ City::~City()
 	// Now that the data has been saved, delete the vector that was allocated to the heap.
 	delete citizens;
 
+	//Close the output stream
 	saver.close();
 
 }
