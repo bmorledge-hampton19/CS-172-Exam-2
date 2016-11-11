@@ -13,10 +13,10 @@ string getFirstPhrase(string& phrases) {
 
 	// Find the single phrase before the space to be returned, and assign to a variable to be returned after the original string has been truncated.
 	// This is done by finding a substring with a length determined by the position of the first space character.
-	string singlePhrase = phrases.substr(0, phrases.at(' '));
+	string singlePhrase = phrases.substr(0, phrases.find(' '));
 
 	// Remove the phrase and space from the given string.
-	phrases.erase(0, phrases.at(' ') + 1);
+	phrases.erase(0, phrases.find(' ') + 1);
 
 	// Return the phrase.
 	return singlePhrase;
@@ -28,6 +28,12 @@ City::City(string cityName)
 
 	ifstream restorer; // An input stream to read in saved data for the city, if it exists.
 	string line; // The current line in the file being accessed.  Will be modified to eventually contain only parts of the line.
+	
+	// The properties of the civilians which are stored as the info is read from the text file, and then used to recreate the civilians.
+	int civId = 0; 
+	string civFirstName;
+	string civLastName;
+	string civFavoriteColor;
 
 	// Give the city the name given for the city, and create the filename as [cityName].txt
 
@@ -43,13 +49,22 @@ City::City(string cityName)
 
 		// Read in one line at a time until eof.
 		while (getline(restorer, line)) {
+	
+			// Isolate the citizens parameters with the getFirstPhrase function.
+			civId = stoi(getFirstPhrase(line));
+			civFirstName = getFirstPhrase(line);
+			civLastName = getFirstPhrase(line);
+			civFavoriteColor = getFirstPhrase(line);
 
-			// Add a citizen to the citizens vector.  The citizens parameters are given by the current line in the file, and isolated through the getFirstPhrase function.
-			citizens->push_back(Citizen(stoi(getFirstPhrase(line)), getFirstPhrase(line), getFirstPhrase(line), getFirstPhrase(line)));
+			// Add a citizen to the citizens vector using the isolated parameters.
+			citizens->push_back(Citizen(civId, civFirstName, civLastName, civFavoriteColor));
+			
 
 		}
 
 	}
+
+	restorer.close();
 
 }
 
@@ -73,6 +88,8 @@ City::~City()
 	// Now that the data has been saved, delete the vector that was allocated to the heap.
 	delete citizens;
 
+	saver.close();
+
 }
 
 string City::getCityName()
@@ -83,7 +100,7 @@ string City::getCityName()
 int City::populationSize()
 {
 	// Derive the size from the vector, and return it.
-	return citizens->size();
+	return (int)citizens->size();
 }
 
 Citizen * City::getCitizenAtIndex(int index)
@@ -127,5 +144,5 @@ vector<Citizen*> City::getCitizensForFavoriteColor(string Color)
 
 	}
 
-	return vector<Citizen*>();
+	return sameFavoriteColorCitizens;
 }

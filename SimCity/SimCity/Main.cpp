@@ -128,10 +128,9 @@ int main() {
 		}
 	}
 	cout << "ERROR COUNT: " << errors << ".\n";
-	cout << "Be sure to run this 3 times and be sure that on the 2nd and 3rd run you get 1
-		SUCCESS." << endl;
+	cout << "Be sure to run this 3 times and be sure that on the 2nd and 3rd run you get 1 SUCCESS." << endl;
 		//Delete our cities when we are done with them
-		delete katchem;
+	delete katchem;
 	delete spokane;
 	delete seattle;
 	return 0;
