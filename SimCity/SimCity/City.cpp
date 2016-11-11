@@ -4,6 +4,7 @@
 // Pre-Processor Directives
 #include "City.h"
 #include <fstream>
+#include <iostream>
 #include <string>
 using namespace std;
 
@@ -101,14 +102,30 @@ void City::addCitizen(Citizen * citizen)
 Citizen * City::getCitizenWithId(int id)
 {
 	
+	// Systematically check every citizen in the vector for the one with the given id.
+	for (int i = 0; i < citizens->size(); i++) {
+		// If the id matches, return the pointer to that student.
+		if ((*citizens)[i].getId() == id) return &((*citizens)[i]);
+	}
 
-
+	// If no citizen was found with the given id, return a null pointer, and let the user know that no citizen was found.
+	cout << "No citizen with ID " << id << " was found." << endl;
+	return nullptr;
+	
 }
 
 vector<Citizen*> City::getCitizensForFavoriteColor(string Color)
 {
 
 	vector <Citizen*> sameFavoriteColorCitizens;  //The vector to be returned that will contain all of the citizens with a given favorite color.
+
+	// Systematically check every citizen in the vector for the ones with the given favorite color.
+	for (int i = 0; i < citizens->size(); i++) {
+
+		// Add the citizen's pointer to the vector if their favorite color matches.
+		if ((*citizens)[i].getFavoriteColor() == Color) sameFavoriteColorCitizens.push_back(&((*citizens)[i]));
+
+	}
 
 	return vector<Citizen*>();
 }
